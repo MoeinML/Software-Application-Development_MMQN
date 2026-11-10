@@ -72,6 +72,8 @@ Managing train schedules, seat allocations, station connections, passenger infor
 
 ### Week 2: Database Connectivity & Python Environment Setup
 
+---
+
 #### 1. Objectives & Learning Outcomes
 * Created a dedicated Python project workspace and configured a virtual environment (`.venv`) for dependency isolation.
 * Installed the `mysql-connector-python` package via pip to bridge Python application logic with the MySQL database server.
@@ -91,7 +93,11 @@ Managing train schedules, seat allocations, station connections, passenger infor
 * Successfully executed test connections and verified live data retrieval from the `trainbookingsystem` database.
 * Committed and synchronized all modular code files and configuration templates to the shared GitHub repository.
 
+---
+
 ### Week 3: Modular Architecture, Environment Security & Streamlit Integration
+
+---
 
 #### 1. Objectives & Overview
 During Week 3, the project evolved from a single-script setup into a maintainable, multi-tier modular architecture. Additionally, security protocols were established for handling database credentials, and a Web Graphical User Interface (GUI) was introduced using **Streamlit** to present live database records in a user-friendly browser interface.
