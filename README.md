@@ -74,8 +74,8 @@ Managing train schedules, seat allocations, station connections, passenger infor
 ### Week 2: Database Connectivity & Python Environment Setup
 
 #### 1. Objectives & Learning Outcomes
-* Created a dedicated Python project workspace and configured a virtual environment (`.venv`) for dependency isolation[cite: 80].
-* Installed the `mysql-connector-python` package via pip to bridge Python application logic with the MySQL database server[cite: 80, 89].
+* Created a dedicated Python project workspace and configured a virtual environment (`.venv`) for dependency isolation.
+* Installed the `mysql-connector-python` package via pip to bridge Python application logic with the MySQL database server.
 * Implemented secure database connectivity parameters and tested successful data retrieval.
 
 #### 2. Technical Implementation Steps
@@ -84,8 +84,8 @@ Managing train schedules, seat allocations, station connections, passenger infor
   * Established secure communication with the local MySQL server using `mysql.connector`.
   * Utilized `python-dotenv` to load sensitive database credentials (`root` password) safely from an ignored `.env` file, preventing credentials exposure in version control.
 * **Data Operations & Testing (`train_operations.py` & `main.py`):**
-  * Created database cursors (`connection.cursor()`) to execute SQL statements[cite: 94].
-  * Executed `SELECT` queries and processed query results using `fetchall()` to fetch and display train and booking records[cite: 80, 95].
+  * Created database cursors (`connection.cursor()`) to execute SQL statements.
+  * Executed `SELECT` queries and processed query results using `fetchall()` to fetch and display train and booking records.
   * Verified end-to-end execution flow from entry point `main.py` through modular operations.
 
 #### 3. Verification & Deliverables
