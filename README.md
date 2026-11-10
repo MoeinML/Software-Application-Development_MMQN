@@ -174,12 +174,21 @@ for train in trains:
 * **Version Control Filtering (`.gitignore`):** Configured `.gitignore` rules to exclude `.venv/`, `.env`, and cache files (`__pycache__/`) from being tracked or pushed to remote repositories.
 * **Package Management:** Installed `streamlit` and updated `requirements.txt` (`pip freeze > requirements.txt`) to allow team members to seamlessly reproduce the identical runtime environment.
 
+![3.1.png](Images/3.1.png)
+
+![3.2.png](Images/3.2.png)
+
 ---
 
 #### 4. Web Interface Execution & Verification
 * Launched the Streamlit web application via terminal using `streamlit run app.py`.
 * Verified live database records fetched from MySQL and rendered at `http://localhost:8501`.
 * Successfully committed and synchronized all modular code files, dependencies, and interface logic to GitHub.
+
+![3.3.png](Images/3.3.png)
+
+![3.4.png](Images/3.4.png)
+
 
 
 
