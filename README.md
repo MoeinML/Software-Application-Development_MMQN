@@ -5,7 +5,7 @@
 - [Weekly Progress & Milestones](#weekly-progress--milestones)
   - [Week 1: Project Scope, Requirement Analysis & Agile Setup](#week-1-project-scope-requirement-analysis--agile-setup)
   - [Week 2: Database Connectivity & Python Environment Setup](#week-2-database-connectivity--python-environment-setup)
-  - [Week 3: Modular Architecture & Basic Data Logic](#week-3-modular-architecture--basic-data-logic)
+  - [Week 3: Modular Architecture, Environment Security & Streamlit Integration](#week-3-modular-architecture-environment-security--streamlit-integration)
   - [Week 4: Full Scope CRUD Implementation](#week-4-full-scope-crud-implementation)
   - [Week 5: Streamlit Multi-Page UI Design](#week-5-streamlit-multi-page-ui-design)
   - [Week 6: Input Validation & Automated Testing (pytest)](#week-6-input-validation--automated-testing-pytest)
@@ -95,17 +95,17 @@ Managing train schedules, seat allocations, station connections, passenger infor
 ### Week 3: Modular Architecture, Environment Security & Streamlit Integration
 
 #### 1. Objectives & Overview
-During Week 3, the project evolved from a single-script setup into a maintainable, multi-tier modular architecture. Additionally, security protocols were established for handling database credentials, and a Web Graphical User Interface (GUI) was introduced using **Streamlit** to present live database records in a user-friendly browser interface[cite: 103, 112].
+During Week 3, the project evolved from a single-script setup into a maintainable, multi-tier modular architecture. Additionally, security protocols were established for handling database credentials, and a Web Graphical User Interface (GUI) was introduced using **Streamlit** to present live database records in a user-friendly browser interface.
 
 ---
 
 #### 2. Technical Implementation & Modular Architecture
 
-The application was structured into three dedicated, single-responsibility modules[cite: 103]:
-* **`db.py` (Database Connection Layer):** Encapsulates the connection logic to the MySQL database `trainbookingsystem` while securely pulling environment credentials[cite: 103, 106].
-* **`train_operations.py` (Data Access Layer):** Contains functions dedicated to executing database queries and retrieving dataset structures[cite: 103, 107].
-* **`main.py` (Console Entry Point):** Handles terminal-based execution flow[cite: 103, 107].
-* **`app.py` (Streamlit Web Interface):** Integrates the modular backend with Streamlit to render dynamic web pages[cite: 112].
+The application was structured into three dedicated, single-responsibility modules:
+* **`db.py` (Database Connection Layer):** Encapsulates the connection logic to the MySQL database `trainbookingsystem` while securely pulling environment credentials.
+* **`train_operations.py` (Data Access Layer):** Contains functions dedicated to executing database queries and retrieving dataset structures.
+* **`main.py` (Console Entry Point):** Handles terminal-based execution flow.
+* **`app.py` (Streamlit Web Interface):** Integrates the modular backend with Streamlit to render dynamic web pages.
 
 ##### Source Code Implementation
 
@@ -184,81 +184,3 @@ for train in trains:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 1. Project Overview
-
-This project aims to develop a Python-based application for managing and interacting with a MySQL database.
-
-The main objective is to build basic database operations and gradually expand the system with additional features.
-
-## 2. Current Progress
-
-The MySQL database structure has been successfully implemented.
-
-Basic Python scripts for interacting with MySQL have also been developed using the `getpass` and `mysql` modules.
-
-The current implementation includes:
-
-- Database connection.
-- Password input using `getpass`.
-- Data retrieval (SELECT).
-- Data insertion (INSERT).
-- Data deletion (DELETE).
-
-## 3. Sample Code
-
-The file `test_connection.py` contains sample Python code demonstrating database connection and basic data operations.
-
-It serves as the starting point for further development.
-
-## 4. Next Steps
-
-The project is still under development. The next steps include:
-
-- Improving and organizing the Python code.
-- Developing reusable database modules.
-- Implementing data update (UPDATE) functionality.
-- Improving error handling and database connection management.
-- Expanding database operations and application features.
-
-## 5. Project Status
-
-Status: IN PROGRESS
-
-Further development is ongoing.
-
----
-
-More updates and features will be added as the project progresses.
