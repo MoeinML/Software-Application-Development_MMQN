@@ -92,7 +92,94 @@ Managing train schedules, seat allocations, station connections, passenger infor
 * Successfully executed test connections and verified live data retrieval from the `trainbookingsystem` database.
 * Committed and synchronized all modular code files and configuration templates to the shared GitHub repository.
 
+### Week 3: Modular Architecture, Environment Security & Streamlit Integration
 
+#### 1. Objectives & Overview
+During Week 3, the project evolved from a single-script setup into a maintainable, multi-tier modular architecture. Additionally, security protocols were established for handling database credentials, and a Web Graphical User Interface (GUI) was introduced using **Streamlit** to present live database records in a user-friendly browser interface[cite: 103, 112].
+
+---
+
+#### 2. Technical Implementation & Modular Architecture
+
+The application was structured into three dedicated, single-responsibility modules[cite: 103]:
+* **`db.py` (Database Connection Layer):** Encapsulates the connection logic to the MySQL database `trainbookingsystem` while securely pulling environment credentials[cite: 103, 106].
+* **`train_operations.py` (Data Access Layer):** Contains functions dedicated to executing database queries and retrieving dataset structures[cite: 103, 107].
+* **`main.py` (Console Entry Point):** Handles terminal-based execution flow[cite: 103, 107].
+* **`app.py` (Streamlit Web Interface):** Integrates the modular backend with Streamlit to render dynamic web pages[cite: 112].
+
+##### Source Code Implementation
+
+**`db.py`**
+```python
+import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def get_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password=os.environ["MYSQL_PASSWORD"],
+        database="trainbookingsystem"
+    )
+```
+
+**`train_operations.py`**
+```python
+from db import get_connection
+
+def get_all_trains():
+    connection = get_connection()
+    cursor = connection.cursor()
+    try:
+        cursor.execute("SELECT * FROM train")
+        trains = cursor.fetchall()
+        return trains
+    finally:
+        cursor.close()
+        connection.close()
+```
+
+**`main.py`**
+```python
+from train_operations import get_all_trains
+
+print("Train Booking System")
+trains = get_all_trains()
+
+for train in trains:
+    print(train)
+```
+
+**`app.py`**
+```python
+import streamlit as st
+from train_operations import get_all_trains
+
+st.title("Train Booking System")
+st.subheader("Available Trains")
+
+trains = get_all_trains()
+
+for train in trains:
+    st.write(train)
+```
+
+---
+
+#### 3. Environment Security & Dependency Management
+* **Credential Protection (`.env` & `python-dotenv`):** Sensitive database connection credentials (such as the MySQL `root` password) were stored inside an uncommitted local `.env` file and dynamically loaded at runtime, eliminating hardcoded passwords in source files.
+* **Version Control Filtering (`.gitignore`):** Configured `.gitignore` rules to exclude `.venv/`, `.env`, and cache files (`__pycache__/`) from being tracked or pushed to remote repositories.
+* **Package Management:** Installed `streamlit` and updated `requirements.txt` (`pip freeze > requirements.txt`) to allow team members to seamlessly reproduce the identical runtime environment.
+
+---
+
+#### 4. Web Interface Execution & Verification
+* Launched the Streamlit web application via terminal using `streamlit run app.py`.
+* Verified live database records fetched from MySQL and rendered at `http://localhost:8501`.
+* Successfully committed and synchronized all modular code files, dependencies, and interface logic to GitHub.
 
 
 
