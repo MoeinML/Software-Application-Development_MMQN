@@ -11,7 +11,6 @@
   - [Week 6: Input Validation & Automated Testing (pytest)](#week-6-input-validation--automated-testing-pytest)
   - [Week 7: Code Refactoring, Integration & Documentation](#week-7-code-refactoring-integration--documentation)
   - [Week 8: Final Presentation & Live Demo](#week-8-final-presentation--live-demo)
-- [Installation & Setup Guide](#installation--setup-guide)
 
 ---
 
