@@ -4,7 +4,7 @@
 - [Team Members](#team-members)
 - [Weekly Progress & Milestones](#weekly-progress--milestones)
   - [Week 1: Project Scope, Requirement Analysis & Agile Setup](#week-1-project-scope-requirement-analysis--agile-setup)
-  - [Week 2: Database Integration & Environment Setup](#week-2-database-integration--environment-setup)
+  - [Week 2: Database Connectivity & Python Environment Setup](#week-2-database-connectivity--python-environment-setup)
   - [Week 3: Modular Architecture & Basic Data Logic](#week-3-modular-architecture--basic-data-logic)
   - [Week 4: Full Scope CRUD Implementation](#week-4-full-scope-crud-implementation)
   - [Week 5: Streamlit Multi-Page UI Design](#week-5-streamlit-multi-page-ui-design)
@@ -71,8 +71,26 @@ Managing train schedules, seat allocations, station connections, passenger infor
 
 ---
 
-### Week 2: Database Integration & Environment Setup
+### Week 2: Database Connectivity & Python Environment Setup
 
+#### 1. Objectives & Learning Outcomes
+* Created a dedicated Python project workspace and configured a virtual environment (`.venv`) for dependency isolation[cite: 80].
+* Installed the `mysql-connector-python` package via pip to bridge Python application logic with the MySQL database server[cite: 80, 89].
+* Implemented secure database connectivity parameters and tested successful data retrieval.
+
+#### 2. Technical Implementation Steps
+* **Virtual Environment & Dependencies:** Set up `.venv` to manage required libraries cleanly and documented dependencies in `requirements.txt`.
+* **Database Connection Module (`db.py`):** 
+  * Established secure communication with the local MySQL server using `mysql.connector`.
+  * Utilized `python-dotenv` to load sensitive database credentials (`root` password) safely from an ignored `.env` file, preventing credentials exposure in version control.
+* **Data Operations & Testing (`train_operations.py` & `main.py`):**
+  * Created database cursors (`connection.cursor()`) to execute SQL statements[cite: 94].
+  * Executed `SELECT` queries and processed query results using `fetchall()` to fetch and display train and booking records[cite: 80, 95].
+  * Verified end-to-end execution flow from entry point `main.py` through modular operations.
+
+#### 3. Verification & Deliverables
+* Successfully executed test connections and verified live data retrieval from the `trainbookingsystem` database.
+* Committed and synchronized all modular code files and configuration templates to the shared GitHub repository.
 
 
 
