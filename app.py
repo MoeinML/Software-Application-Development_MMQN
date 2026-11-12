@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import time
 from train_operations import (
     get_all_stations, add_station, delete_station,
     get_all_trains, add_train, delete_train,
@@ -38,7 +39,8 @@ with tab_stations:
                 success = add_station(station_name.strip(), city.strip())
                 if success:
                     st.success("Station added successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Failed to add station. Please check database constraints.")
 
@@ -57,7 +59,8 @@ with tab_stations:
             if delete_submitted:
                 if delete_station(selected_station_id):
                     st.success(f"Station {selected_station_id} deleted successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Error deleting station.")
     else:
@@ -82,7 +85,8 @@ with tab_trains:
                 success = add_train(train_code.strip(), train_type.strip())
                 if success:
                     st.success("Train added successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Failed to add train (Train code might already exist).")
 
@@ -101,7 +105,8 @@ with tab_trains:
             if delete_submitted:
                 if delete_train(selected_train_id):
                     st.success(f"Train {selected_train_id} deleted successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Error deleting train.")
     else:
@@ -127,7 +132,8 @@ with tab_passengers:
                 success = add_passenger(first_name.strip(), last_name.strip(), phone_number.strip())
                 if success:
                     st.success("Passenger added successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Failed to add passenger.")
 
@@ -146,7 +152,8 @@ with tab_passengers:
             if delete_submitted:
                 if delete_passenger(selected_passenger_id):
                     st.success(f"Passenger {selected_passenger_id} deleted successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Error deleting passenger.")
     else:
@@ -164,8 +171,8 @@ with tab_schedules:
     with st.form("add_schedule_form"):
         st.subheader("Add New Schedule")
         travel_date = st.date_input("Travel Date")
-        departure_time = st.text_input("Departure Time [HH:MM:SS]", value="08:00:00")
-        arrival_time = st.text_input("Arrival Time [HH:MM:SS]", value="12:00:00")
+        departure_time = st.text_input("Departure Time", value="08:00:00")
+        arrival_time = st.text_input("Arrival Time", value="12:00:00")
        
         train_options = {t[1]: t[0] for t in trains} if trains else {}
         station_options = {s[1]: s[0] for s in stations} if stations else {}
@@ -190,7 +197,8 @@ with tab_schedules:
                     success = add_schedule(departure_time, str(travel_date), arrival_time, train_id, dep_id, arr_id)
                     if success:
                         st.success("Schedule added successfully!")
-                        st.rerun()
+                        time.sleep(1.5)
+                        st.experimental_rerun()
                     else:
                         st.error("Failed to add schedule.")
 
@@ -209,7 +217,8 @@ with tab_schedules:
             if delete_submitted:
                 if delete_schedule(selected_schedule_id):
                     st.success(f"Schedule {selected_schedule_id} deleted successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Error deleting schedule.")
     else:
@@ -251,7 +260,8 @@ with tab_bookings:
                 success = add_booking(booking_date, status, ticket_price, passenger_id, schedule_id, seat_id)
                 if success:
                     st.success("Booking added successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Failed to add booking.")
 
@@ -270,7 +280,8 @@ with tab_bookings:
             if delete_submitted:
                 if delete_booking(selected_booking_id):
                     st.success(f"Booking {selected_booking_id} deleted successfully!")
-                    st.rerun()
+                    time.sleep(1.5)
+                    st.experimental_rerun()
                 else:
                     st.error("Error deleting booking.")
     else:
