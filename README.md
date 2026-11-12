@@ -194,7 +194,27 @@ for train in trains:
 
 ![3.4.png](Images/3.4.png)
 
+#### 5. Station Management & UI Validation Implementation
 
+To expand the core functionalities of the Streamlit interface beyond basic data viewing, the application was extended to support full **CRUD (Create, Read, Update, Delete)** operations, starting with the **Stations** management module.
+
+- **Interactive Station Entry:** Users can seamlessly add new railway stations by inputting the station name and corresponding city through dedicated form fields.
+- **Form Validation & Error Handling:** Built-in safeguards check for empty fields or invalid entries, instantly prompting user-friendly error messages (e.g., preventing blank submissions) to protect database integrity.
+- **Dynamic Data Display & Deletion:** The interface renders existing station records in an organized data table alongside an intuitive selection dropdown allowing administrators to safely delete specific station entries by their unique ID.
+
+![3.5.png](Images/3.5.png)
+
+![3.6.png](Images/3.6.png)
+
+![3.7.png](Images/3.7.png)
+
+---
+
+#### 6. Version Control & Synchronization
+
+Following the successful implementation of the station management interface and database operations, all modified source files (`app.py` and `train_operations.py`) were staged, committed, and pushed to the shared GitHub repository to ensure seamless collaboration across the development team.
+
+![3.8.png](Images/3.8.png)
 
 
 
