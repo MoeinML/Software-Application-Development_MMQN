@@ -164,9 +164,9 @@ with tab_schedules:
     with st.form("add_schedule_form"):
         st.subheader("Add New Schedule")
         travel_date = st.date_input("Travel Date")
-        departure_time = st.text_input("Departure Time (HH:MM:SS)", value="08:00:00")
-        arrival_time = st.text_input("Arrival Time (HH:MM:SS)", value="12:00:00")
-        
+        departure_time = st.text_input("Departure Time [HH:MM:SS]", value="08:00:00")
+        arrival_time = st.text_input("Arrival Time [HH:MM:SS]", value="12:00:00")
+       
         train_options = {t[1]: t[0] for t in trains} if trains else {}
         station_options = {s[1]: s[0] for s in stations} if stations else {}
         
