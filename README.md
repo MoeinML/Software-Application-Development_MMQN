@@ -215,5 +215,3 @@ To expand the core functionalities of the Streamlit interface beyond basic data 
 Following the successful implementation of the station management interface and database operations, all modified source files (`app.py` and `train_operations.py`) were staged, committed, and pushed to the shared GitHub repository to ensure seamless collaboration across the development team.
 
 ![3.8.png](Images/3.8.png)
-
-
