@@ -215,3 +215,33 @@ To expand the core functionalities of the Streamlit interface beyond basic data 
 Following the successful implementation of the station management interface and database operations, all modified source files (`app.py` and `train_operations.py`) were staged, committed, and pushed to the shared GitHub repository to ensure seamless collaboration across the development team.
 
 ![3.8.png](Images/3.8.png)
+
+# Week 4: Reliable Applications
+
+## Overview
+This week focused on improving the reliability, data integrity, and fault tolerance of the Train Booking System across the business logic, database, and Streamlit user interface layers.
+
+## Key Accomplishments
+
+### 1. Input Validation & Business Rules (`validation.py`)
+- Created a dedicated, reusable `validation.py` module independent of Streamlit widgets and database connections.
+- Implemented validation rules for stations, trains, passengers, emails, schedules, and bookings, including:
+  - Rejecting empty or whitespace-only strings using `.strip()`.
+  - Enforcing maximum field length constraints aligned with the database schema.
+  - Validating numeric ranges and positive values (e.g., train capacity and ticket counts).
+  - Checking basic email format and schedule time/station consistency (such as ensuring arrival time is after departure time and departure and arrival stations differ).
+- Routed validation checks before opening database connections or executing write operations so invalid inputs fail fast with clear `ValueError` messages.
+
+### 2. CRUD Reliability & Error Handling (`train_operations.py` & `app.py`)
+- Updated CRUD operations across entities so validation errors (`ValueError`), database constraint violations (`IntegrityError`), and unexpected errors are handled cleanly.
+- Ensured database cursors and connections are closed reliably in `finally` blocks, while rolling back failed changes when needed.
+- Updated Streamlit workflows to present clear, user-friendly feedback for expected input/constraint errors while logging technical exceptions for debugging.
+
+### 3. Atomic Transaction for Passenger & Email Registration (Task B)
+- Updated the schema so passenger emails enforce uniqueness (`UNIQUE`) and cascade on passenger deletion (`ON DELETE CASCADE`) to keep data consistent.
+- Implemented `add_passenger_with_email_transaction` using a single database connection with explicit transaction control (`start_transaction()`, `commit()`, and `rollback()`), inserting the passenger record and retrieving `lastrowid` before inserting the associated email.
+- Added a dedicated transaction test section in `app.py` to verify atomic commits as well as automatic rollback when validation or constraint errors occur.
+
+![4.1.png](Images/4.1.png)
+
+
