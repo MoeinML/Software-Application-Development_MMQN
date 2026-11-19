@@ -214,7 +214,11 @@ Following the successful implementation of the station management interface and 
 
 ![3.8.png](Images/3.8.png)
 
+---
+
 ### Week 4: Reliable Applications
+
+---
 
 #### Overview
 This week focused on improving the reliability, data integrity, and fault tolerance of the Train Booking System across the business logic, database, and Streamlit user interface layers.
