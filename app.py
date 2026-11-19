@@ -77,7 +77,7 @@ with tab_stations:
                     except Exception as e:
                         st.error("Error deleting station (it might be used in schedules).")
         
-        # Update station section (بدون st.form برای واکنش‌گرایی لحظه‌ای)
+        # Update station section
         with col_upd:
             st.subheader("Update Station")
             station_dict = {s[0]: s for s in stations}
