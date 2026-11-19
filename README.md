@@ -6,10 +6,8 @@
   - [Week 1: Project Scope, Requirement Analysis & Agile Setup](#week-1-project-scope-requirement-analysis--agile-setup)
   - [Week 2: Database Connectivity & Python Environment Setup](#week-2-database-connectivity--python-environment-setup)
   - [Week 3: Modular Architecture, Environment Security & Streamlit Integration](#week-3-modular-architecture-environment-security--streamlit-integration)
-  - [Week 4: Full Scope CRUD Implementation](#week-4-full-scope-crud-implementation)
-  - [Week 5: Streamlit Multi-Page UI Design](#week-5-streamlit-multi-page-ui-design)
-  - [Week 6: Input Validation & Automated Testing (pytest)](#week-6-input-validation--automated-testing-pytest)
-  - [Week 7: Code Refactoring, Integration & Documentation](#week-7-code-refactoring-integration--documentation)
+  - [Week 4: Reliable Applications](#week-4-reliable-applications)
+
   - [Week 8: Final Presentation & Live Demo](#week-8-final-presentation--live-demo)
 
 ---
