@@ -244,7 +244,7 @@ with tab_passengers:
             else:
                 st.info("Please add a passenger first.")
 
-    # Column 1: Add New Passenger with email
+    # Add New Passenger with email
     # ==================== TASK B: TRANSACTION FORM ====================
     with st.expander("🧪 Advanced Feature: Transaction Test (Task B)"):
         st.subheader("Add Passenger with Email (Atomic Transaction)")
