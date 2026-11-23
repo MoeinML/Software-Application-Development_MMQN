@@ -1,5 +1,5 @@
-MAX_NAME_LENGTH = 50
-MAX_CODE_LENGTH = 20
+MAX_NAME_LENGTH = 100
+MAX_CODE_LENGTH = 50
 MAX_PHONE_LENGTH = 20
 
 
@@ -27,7 +27,7 @@ def validate_train(train_code, train_type, capacity):
         
     if not isinstance(train_type, str) or not train_type.strip():
         raise ValueError("Train type cannot be empty.")
-    if len(train_type.strip()) > MAX_NAME_LENGTH:
+    if len(train_type.strip()) > MAX_CODE_LENGTH:
         raise ValueError(f"Train type is too long (max {MAX_NAME_LENGTH} characters).")
 
     try:
@@ -65,7 +65,7 @@ def validate_email(email):
     """Validates passenger email."""
     if not isinstance(email, str) or not email.strip():
         raise ValueError("Email cannot be empty.")
-    if len(email.strip()) > 100:  # Aligned with VARCHAR(100) in the database
+    if len(email.strip()) > MAX_NAME_LENGTH: 
         raise ValueError("Email is too long.")
     
     email_cleaned = email.strip()

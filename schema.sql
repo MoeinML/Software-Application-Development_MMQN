@@ -11,7 +11,7 @@ CREATE TABLE STATION (
 -- 2. TRAIN Table (Independent Entity)
 CREATE TABLE TRAIN (
     train_id INT AUTO_INCREMENT PRIMARY KEY,
-    train_code VARCHAR(20) NOT NULL UNIQUE,
+    train_code VARCHAR(50) NOT NULL UNIQUE,
     train_type VARCHAR(50) NOT NULL,
     capacity INT NOT NULL CHECK (capacity > 0)
 );
@@ -19,8 +19,8 @@ CREATE TABLE TRAIN (
 -- 3. PASSENGER Table (Independent Entity)
 CREATE TABLE PASSENGER (
     passenger_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20) NOT NULL UNIQUE
 );
 
@@ -44,8 +44,10 @@ CREATE TABLE SCHEDULE (
     arrival_station_id INT NOT NULL,
     FOREIGN KEY (train_id) REFERENCES TRAIN(train_id)
         ON UPDATE CASCADE,
-    FOREIGN KEY (departure_station_id) REFERENCES STATION(station_id),
+    FOREIGN KEY (departure_station_id) REFERENCES STATION(station_id)
+        ON UPDATE CASCADE,
     FOREIGN KEY (arrival_station_id) REFERENCES STATION(station_id)
+        ON UPDATE CASCADE
 );
 
 -- 6. BOOKING Table (Depends on PASSENGER and SCHEDULE)
