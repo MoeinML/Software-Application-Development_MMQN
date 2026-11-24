@@ -7,6 +7,7 @@
   - [Week 2: Database Connectivity & Python Environment Setup](#week-2-database-connectivity--python-environment-setup)
   - [Week 3: Modular Architecture, Environment Security & Streamlit Integration](#week-3-modular-architecture-environment-security--streamlit-integration)
   - [Week 4: Reliable Applications](#week-4-reliable-applications)
+  - [Week 5: Finding & Preventing Bugs, Automated Testing with `pytest`](#week-5-finding--preventing-bugs-automated-testing-with-pytest)
 
   - [Week 8: Final Presentation & Live Demo](#week-8-final-presentation--live-demo)
 
@@ -246,4 +247,117 @@ This week focused on improving the reliability, data integrity, and fault tolera
 
 ![4.1.png](Images/4.1.png)
 
+### Week 5: Finding & Preventing Bugs, Automated Testing with `pytest`
 
+---
+
+#### 1. Overview
+During Week 5, automated unit testing was introduced to verify the pure input-validation functions in `validation.py` without requiring a live database or browser UI[cite: 38, 39]. Using `pytest` inside the project virtual environment (`.venv`), we established repeatable tests for valid cleaned outputs, `ValueError` handling, edge cases, and parameterized invalid values[cite: 20, 34, 35, 39, 45].
+
+---
+
+#### 2. Environment Setup & Dependency Management
+- Installed `pytest` (`7.4.4`) into the active project virtual environment (`.venv`)[cite: 20, 44].
+- Updated `requirements.txt` so `pytest` is recorded alongside the project dependencies for reproducible test execution across the team[cite: 20].
+
+---
+
+#### 3. Unit Testing Implementation (`test_validation.py`)
+Created `test_validation.py` following the **Arrange, Act, Assert** pattern and `pytest` naming conventions (`test_*.py` and `test_*`) to test validation rules across stations, trains, passengers, emails, schedules, and bookings[cite: 22, 32, 45]:
+- **Valid Inputs & Cleaned Return Values:** Verified that leading/trailing whitespace is stripped and valid inputs return cleaned values[cite: 34, 45].
+- **Blank Input Rejection:** Used `pytest.raises(ValueError, match=...)` to verify that empty fields raise `ValueError` with expected messages[cite: 35, 45].
+- **Boundary & Invalid Quantity Cases:** Tested whitespace-only strings as well as negative or zero capacities and ticket counts[cite: 34, 35, 45].
+- **Parameterized Testing (`@pytest.mark.parametrize`):** Added parameterized test cases to validate multiple invalid capacity and ticket values cleanly[cite: 37, 45].
+
+##### Source Code Implementation (`test_validation.py`)
+
+```python
+# test_validation.py
+import pytest
+from validation import (
+    validate_station,
+    validate_train,
+    validate_passenger,
+    validate_email,
+    validate_schedule,
+    validate_booking,
+)
+
+
+# 1. Valid entity and cleaned return values
+def test_valid_station_is_cleaned():
+    # Arrange & Act
+    result = validate_station("  Helsinki Central  ", "  Helsinki  ")
+    # Assert
+    assert result == ("Helsinki Central", "Helsinki")
+
+
+def test_valid_train_is_cleaned():
+    result = validate_train("  IC-101  ", "  InterCity  ", 200)
+    assert result == ("IC-101", "InterCity", 200)
+
+
+# 2. ValueError for blank string fields
+def test_empty_station_name_is_rejected():
+    with pytest.raises(ValueError, match="Station name cannot be empty"):
+        validate_station("", "Helsinki")
+
+
+def test_empty_train_code_is_rejected():
+    with pytest.raises(ValueError, match="Train code cannot be empty"):
+        validate_train("", "InterCity", 200)
+
+
+# 3. Spaces-only strings and negative / zero quantities
+def test_spaces_only_city_is_rejected():
+    with pytest.raises(ValueError, match="City cannot be empty"):
+        validate_station("Helsinki Central", "   ")
+
+
+def test_negative_capacity_is_rejected():
+    with pytest.raises(ValueError, match="Capacity must be greater than zero"):
+        validate_train("IC-101", "InterCity", -5)
+
+
+def test_zero_tickets_is_rejected():
+    with pytest.raises(ValueError, match="Number of tickets must be at least 1"):
+        validate_booking(1, 1, 0)
+
+
+# 4. Additional entity validations
+def test_valid_passenger_and_email():
+    assert validate_passenger("  Ali  ", "  Rezaei  ", "  +358401234567  ") == (
+        "Ali",
+        "Rezaei",
+        "+358401234567",
+    )
+    assert validate_email("  ali@example.com  ") == "ali@example.com"
+
+
+def test_invalid_email_format_is_rejected():
+    with pytest.raises(ValueError, match="Invalid email format"):
+        validate_email("invalid-email")
+
+
+def test_schedule_same_stations_is_rejected():
+    with pytest.raises(ValueError, match="Departure and arrival stations cannot be the same"):
+        validate_schedule("08:00:00", "2026-12-01", "10:00:00", 1, 2, 2)
+
+
+# 5. Advanced: parametrized test for invalid quantity types
+@pytest.mark.parametrize("invalid_capacity", [-1, 0, "abc", None])
+def test_invalid_capacity_values_are_rejected(invalid_capacity):
+    with pytest.raises(ValueError):
+        validate_train("IC-101", "InterCity", invalid_capacity)
+
+
+@pytest.mark.parametrize("invalid_tickets", [-2, 0, "three", None])
+def test_invalid_ticket_values_are_rejected(invalid_tickets):
+    with pytest.raises(ValueError):
+        validate_booking(1, 1, invalid_tickets)
+```
+#### 4. Test Execution & Verification
+- Ran the validation test suite from the project root with `.venv` active using `pytest test_validation.py -v`[cite: 21, 43].
+- Verified that all 18 tests passed (`18 passed in 0.03s`) and committed the test suite and updated `requirements.txt` to GitHub for ongoing regression protection[cite: 20, 26, 43].
+
+![5.1.png](Images/5.1.png)
