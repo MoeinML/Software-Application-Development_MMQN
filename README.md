@@ -247,27 +247,29 @@ This week focused on improving the reliability, data integrity, and fault tolera
 
 ![4.1.png](Images/4.1.png)
 
+---
+
 ### Week 5: Finding & Preventing Bugs, Automated Testing with `pytest`
 
 ---
 
 #### 1. Overview
-During Week 5, automated unit testing was introduced to verify the pure input-validation functions in `validation.py` without requiring a live database or browser UI[cite: 38, 39]. Using `pytest` inside the project virtual environment (`.venv`), we established repeatable tests for valid cleaned outputs, `ValueError` handling, edge cases, and parameterized invalid values[cite: 20, 34, 35, 39, 45].
+During Week 5, automated unit testing was introduced to verify the pure input-validation functions in `validation.py` without requiring a live database or browser UI. Using `pytest` inside the project virtual environment (`.venv`), we established repeatable tests for valid cleaned outputs, `ValueError` handling, edge cases, and parameterized invalid values.
 
 ---
 
 #### 2. Environment Setup & Dependency Management
-- Installed `pytest` (`7.4.4`) into the active project virtual environment (`.venv`)[cite: 20, 44].
-- Updated `requirements.txt` so `pytest` is recorded alongside the project dependencies for reproducible test execution across the team[cite: 20].
+- Installed `pytest` (`7.4.4`) into the active project virtual environment (`.venv`).
+- Updated `requirements.txt` so `pytest` is recorded alongside the project dependencies for reproducible test execution across the team.
 
 ---
 
 #### 3. Unit Testing Implementation (`test_validation.py`)
-Created `test_validation.py` following the **Arrange, Act, Assert** pattern and `pytest` naming conventions (`test_*.py` and `test_*`) to test validation rules across stations, trains, passengers, emails, schedules, and bookings[cite: 22, 32, 45]:
-- **Valid Inputs & Cleaned Return Values:** Verified that leading/trailing whitespace is stripped and valid inputs return cleaned values[cite: 34, 45].
-- **Blank Input Rejection:** Used `pytest.raises(ValueError, match=...)` to verify that empty fields raise `ValueError` with expected messages[cite: 35, 45].
-- **Boundary & Invalid Quantity Cases:** Tested whitespace-only strings as well as negative or zero capacities and ticket counts[cite: 34, 35, 45].
-- **Parameterized Testing (`@pytest.mark.parametrize`):** Added parameterized test cases to validate multiple invalid capacity and ticket values cleanly[cite: 37, 45].
+Created `test_validation.py` following the **Arrange, Act, Assert** pattern and `pytest` naming conventions (`test_*.py` and `test_*`) to test validation rules across stations, trains, passengers, emails, schedules, and bookings:
+- **Valid Inputs & Cleaned Return Values:** Verified that leading/trailing whitespace is stripped and valid inputs return cleaned values.
+- **Blank Input Rejection:** Used `pytest.raises(ValueError, match=...)` to verify that empty fields raise `ValueError` with expected messages.
+- **Boundary & Invalid Quantity Cases:** Tested whitespace-only strings as well as negative or zero capacities and ticket counts.
+- **Parameterized Testing (`@pytest.mark.parametrize`):** Added parameterized test cases to validate multiple invalid capacity and ticket values cleanly.
 
 ##### Source Code Implementation (`test_validation.py`)
 
@@ -357,7 +359,7 @@ def test_invalid_ticket_values_are_rejected(invalid_tickets):
         validate_booking(1, 1, invalid_tickets)
 ```
 #### 4. Test Execution & Verification
-- Ran the validation test suite from the project root with `.venv` active using `pytest test_validation.py -v`[cite: 21, 43].
-- Verified that all 18 tests passed (`18 passed in 0.03s`) and committed the test suite and updated `requirements.txt` to GitHub for ongoing regression protection[cite: 20, 26, 43].
+- Ran the validation test suite from the project root with `.venv` active using `pytest test_validation.py -v`.
+- Verified that all 18 tests passed (`18 passed in 0.03s`) and committed the test suite and updated `requirements.txt` to GitHub for ongoing regression protection.
 
 ![5.1.png](Images/5.1.png)
