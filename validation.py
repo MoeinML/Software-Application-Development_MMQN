@@ -28,7 +28,7 @@ def validate_train(train_code, train_type, capacity):
     if not isinstance(train_type, str) or not train_type.strip():
         raise ValueError("Train type cannot be empty.")
     if len(train_type.strip()) > MAX_CODE_LENGTH:
-        raise ValueError(f"Train type is too long (max {MAX_NAME_LENGTH} characters).")
+        raise ValueError(f"Train type is too long (max {MAX_CODE_LENGTH} characters).")
 
     try:
         capacity_int = int(capacity)
