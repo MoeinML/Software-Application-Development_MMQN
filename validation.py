@@ -77,6 +77,8 @@ def validate_email(email):
 
 
 from datetime import datetime
+
+
 def validate_schedule(departure_time, travel_date, arrival_time, train_id, dep_station_id, arr_station_id):
     """Validates schedule inputs and IDs."""
     if not travel_date:

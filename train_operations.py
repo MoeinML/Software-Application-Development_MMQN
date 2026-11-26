@@ -1,13 +1,15 @@
+from mysql.connector import IntegrityError
+
 from db import get_connection
 from validation import (
-    validate_station,
-    validate_train,
+    validate_booking,
+    validate_email,
     validate_passenger,
     validate_schedule,
-    validate_booking,
-    validate_email
+    validate_station,
+    validate_train,
 )
-from mysql.connector import IntegrityError
+
 
 # ==================== 1. STATION OPERATIONS ====================
 def get_all_stations():
@@ -302,7 +304,7 @@ def add_passenger_email(passenger_id, email):
     # Check for duplicate entry constraint violation
     except IntegrityError:
         connection.rollback()
-        raise ValueError(f"This email address already exists for this passenger!")
+        raise ValueError("This email address already exists for this passenger!")
     except Exception as e:
         connection.rollback()
         print(f"Error adding passenger email: {e}")

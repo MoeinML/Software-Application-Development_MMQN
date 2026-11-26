@@ -1,16 +1,39 @@
-import streamlit as st
-import pandas as pd
-from datetime import datetime
-import time
 import logging
+import time
+from datetime import datetime
+
+import pandas as pd
+import streamlit as st
+
 from train_operations import (
-    get_all_stations, add_station, update_station, delete_station,
-    get_all_trains, add_train, update_train, delete_train,
-    get_all_passengers, add_passenger, add_passenger_with_email_transaction, update_passenger, delete_passenger,
-    get_all_passenger_emails, add_passenger_email, update_passenger_email, delete_passenger_email,
-    get_all_bookings, add_booking, update_booking, delete_booking,
-    get_all_schedules, get_all_schedules_with_capacity, add_schedule, update_schedule, delete_schedule
+    add_booking,
+    add_passenger,
+    add_passenger_email,
+    add_passenger_with_email_transaction,
+    add_schedule,
+    add_station,
+    add_train,
+    delete_booking,
+    delete_passenger,
+    delete_passenger_email,
+    delete_schedule,
+    delete_station,
+    delete_train,
+    get_all_bookings,
+    get_all_passenger_emails,
+    get_all_passengers,
+    get_all_schedules,
+    get_all_schedules_with_capacity,
+    get_all_stations,
+    get_all_trains,
+    update_booking,
+    update_passenger,
+    update_passenger_email,
+    update_schedule,
+    update_station,
+    update_train,
 )
+
 logger = logging.getLogger(__name__)
 
 # Page configuration
@@ -46,7 +69,7 @@ with tab_stations:
                     st.error("Failed to add station. Check if station name already exists.")
             except ValueError as ve:
                 st.error(f"Validation Error: {ve}")
-            except Exception as e:
+            except Exception:
                 logger.exception("Failed to save station to database")
                 st.error("A database error occurred. Please try again.")
 
@@ -60,22 +83,21 @@ with tab_stations:
         col_del, col_upd = st.columns(2)
         
         # Delete station form
-        with col_del:
-            with st.form("delete_station_form"):
-                st.subheader("Delete Station")
-                station_ids = [s[0] for s in stations]
-                selected_station_id = st.selectbox("Select Station ID to Delete", station_ids, key="del_st_sel")
-                delete_submitted = st.form_submit_button("Delete Station", use_container_width=True)
-                if delete_submitted:
-                    try:
-                        if delete_station(selected_station_id):
-                            st.success(f"Station {selected_station_id} deleted successfully!")
-                            time.sleep(1.2)
-                            st.experimental_rerun()
-                    except ValueError as ve:
-                        st.error(f"Deletion Error: {ve}")
-                    except Exception as e:
-                        st.error("Error deleting station (it might be used in schedules).")
+        with col_del, st.form("delete_station_form"):
+            st.subheader("Delete Station")
+            station_ids = [s[0] for s in stations]
+            selected_station_id = st.selectbox("Select Station ID to Delete", station_ids, key="del_st_sel")
+            delete_submitted = st.form_submit_button("Delete Station", use_container_width=True)
+            if delete_submitted:
+                try:
+                    if delete_station(selected_station_id):
+                        st.success(f"Station {selected_station_id} deleted successfully!")
+                        time.sleep(1.2)
+                        st.experimental_rerun()
+                except ValueError as ve:
+                    st.error(f"Deletion Error: {ve}")
+                except Exception:
+                    st.error("Error deleting station (it might be used in schedules).")
         
         # Update station section
         with col_upd:
@@ -98,7 +120,7 @@ with tab_stations:
                         st.error("Failed to update station.")
                 except ValueError as ve:
                     st.error(f"Validation Error: {ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Failed to update station")
                     st.error("A database error occurred.")
     else:
@@ -128,7 +150,7 @@ with tab_trains:
                     st.error("Failed to add train (Train code might already exist).")
             except ValueError as ve:
                 st.error(f"Validation Error: {ve}")
-            except Exception as e:
+            except Exception:
                 logger.exception("Failed to save train to database")
                 st.error("A database error occurred. Please try again.")
 
@@ -142,22 +164,21 @@ with tab_trains:
         col_del_t, col_upd_t = st.columns(2)
                 
         # Delete train form
-        with col_del_t:
-            with st.form("delete_train_form"):
-                st.subheader("Delete Train")
-                train_ids = [t[0] for t in trains]
-                selected_train_id = st.selectbox("Select Train ID to Delete", train_ids, key="del_tr_sel")
-                delete_submitted = st.form_submit_button("Delete Train", use_container_width=True)
-                if delete_submitted:
-                    try:
-                        if delete_train(selected_train_id):
-                            st.success(f"Train {selected_train_id} deleted successfully!")
-                            time.sleep(1.2)
-                            st.experimental_rerun()
-                    except ValueError as ve:
-                        st.error(f"Deletion Error: {ve}")
-                    except Exception as e:
-                        st.error("Error deleting train (it might be used in schedules).")
+        with col_del_t, st.form("delete_train_form"):
+            st.subheader("Delete Train")
+            train_ids = [t[0] for t in trains]
+            selected_train_id = st.selectbox("Select Train ID to Delete", train_ids, key="del_tr_sel")
+            delete_submitted = st.form_submit_button("Delete Train", use_container_width=True)
+            if delete_submitted:
+                try:
+                    if delete_train(selected_train_id):
+                        st.success(f"Train {selected_train_id} deleted successfully!")
+                        time.sleep(1.2)
+                        st.experimental_rerun()
+                except ValueError as ve:
+                    st.error(f"Deletion Error: {ve}")
+                except Exception:
+                    st.error("Error deleting train (it might be used in schedules).")
         
         # Update train section
         with col_upd_t:
@@ -181,7 +202,7 @@ with tab_trains:
                         st.error("Failed to update train.")
                 except ValueError as ve:
                     st.error(f"Validation Error: {ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Failed to update train")
                     st.error("A database error occurred.")
     else:
@@ -214,35 +235,34 @@ with tab_passengers:
                     st.error("Failed to add passenger.")
             except ValueError as ve:
                 st.error(f"Validation Error: {ve}")
-            except Exception as e:
+            except Exception:
                 logger.exception("Failed to save passenger to database")
                 st.error("A database error occurred. Please try again.")
 
     # Column 2: Add Email to Passenger
-    with col2:
-        with st.form("add_email_form"):
-            st.subheader("Add Email to Passenger")
-            passengers_list = get_all_passengers()
-            if passengers_list:
-                passenger_options = {p[0]: f"{p[0]} - {p[1]} {p[2]}" for p in passengers_list}
-                selected_pid = st.selectbox("Select Passenger", options=list(passenger_options.keys()), format_func=lambda x: passenger_options[x], key="add_em_pid")
-                email_input = st.text_input("Email Address", key="add_em_addr")
-                email_submitted = st.form_submit_button("Add Email", use_container_width=True)
+    with col2, st.form("add_email_form"):
+        st.subheader("Add Email to Passenger")
+        passengers_list = get_all_passengers()
+        if passengers_list:
+            passenger_options = {p[0]: f"{p[0]} - {p[1]} {p[2]}" for p in passengers_list}
+            selected_pid = st.selectbox("Select Passenger", options=list(passenger_options.keys()), format_func=lambda x: passenger_options[x], key="add_em_pid")
+            email_input = st.text_input("Email Address", key="add_em_addr")
+            email_submitted = st.form_submit_button("Add Email", use_container_width=True)
                 
-                if email_submitted:
-                    try:
-                        success = add_passenger_email(selected_pid, email_input)
-                        if success:
-                            st.success("Email added successfully!")
-                            time.sleep(1.2)
-                            st.experimental_rerun()
-                    except ValueError as ve:
-                        st.error(f"Validation Error: {ve}")
-                    except Exception as e:
-                        logger.exception("Failed to save email to database")
-                        st.error("A database error occurred. Please try again.")
-            else:
-                st.info("Please add a passenger first.")
+            if email_submitted:
+                try:
+                    success = add_passenger_email(selected_pid, email_input)
+                    if success:
+                        st.success("Email added successfully!")
+                        time.sleep(1.2)
+                        st.experimental_rerun()
+                except ValueError as ve:
+                    st.error(f"Validation Error: {ve}")
+                except Exception:
+                    logger.exception("Failed to save email to database")
+                    st.error("A database error occurred. Please try again.")
+        else:
+            st.info("Please add a passenger first.")
 
     # Add New Passenger with email
     # ==================== TASK B: TRANSACTION FORM ====================
@@ -268,7 +288,7 @@ with tab_passengers:
                 except ValueError as ve:
                     # Catch validation or rollback errors raised from the backend and show them cleanly
                     st.error(f"{ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Unexpected database transaction error")
                     st.error("A critical database error occurred during the transaction.")
     
@@ -315,7 +335,7 @@ with tab_passengers:
                             st.experimental_rerun()
                     except ValueError as ve:
                         st.error(f"Deletion Error: {ve}")
-                    except Exception as e:
+                    except Exception:
                         st.error("Error deleting passenger.")
             else:
                 st.info("No passengers available.")
@@ -339,7 +359,7 @@ with tab_passengers:
                         st.experimental_rerun()
                 except ValueError as ve:
                     st.error(f"Validation Error: {ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Failed to update passenger")
                     st.error("A database error occurred.")
         else:
@@ -356,7 +376,7 @@ with tab_passengers:
                 if email_delete_submitted:
                     pid_to_del, email_to_del = selected_email_key
                     if delete_passenger_email(pid_to_del, email_to_del):
-                        st.success(f"Email deleted successfully!")
+                        st.success("Email deleted successfully!")
                         time.sleep(1.2)
                         st.experimental_rerun()
                     else:
@@ -381,7 +401,7 @@ with tab_passengers:
                         st.experimental_rerun()
                 except ValueError as ve:
                     st.error(f"Validation Error: {ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Failed to update email")
                     st.error("A database error occurred.")
         else:
@@ -429,7 +449,7 @@ with tab_schedules:
                         st.error("Failed to add schedule.")
                 except ValueError as ve:
                     st.error(f"Validation Error: {ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Failed to save schedule to database")
                     st.error("A database error occurred. Please try again.")
 
@@ -443,22 +463,21 @@ with tab_schedules:
         col_del_sch, col_upd_sch = st.columns(2)
         
         # Delete schedule form
-        with col_del_sch:
-            with st.form("delete_schedule_form"):
-                st.subheader("Delete Schedule")
-                schedule_ids = [s[0] for s in schedules]
-                selected_schedule_id = st.selectbox("Select Schedule ID to Delete", schedule_ids, key="del_sch_sel")
-                delete_submitted = st.form_submit_button("Delete Schedule", use_container_width=True)
-                if delete_submitted:
-                    try:
-                        if delete_schedule(selected_schedule_id):
-                            st.success(f"Schedule {selected_schedule_id} deleted successfully!")
-                            time.sleep(1.2)
-                            st.experimental_rerun()
-                    except ValueError as ve:
-                        st.error(f"Deletion Error: {ve}")
-                    except Exception as e:
-                        st.error("Error deleting schedule.")
+        with col_del_sch, st.form("delete_schedule_form"):
+            st.subheader("Delete Schedule")
+            schedule_ids = [s[0] for s in schedules]
+            selected_schedule_id = st.selectbox("Select Schedule ID to Delete", schedule_ids, key="del_sch_sel")
+            delete_submitted = st.form_submit_button("Delete Schedule", use_container_width=True)
+            if delete_submitted:
+                try:
+                    if delete_schedule(selected_schedule_id):
+                        st.success(f"Schedule {selected_schedule_id} deleted successfully!")
+                        time.sleep(1.2)
+                        st.experimental_rerun()
+                except ValueError as ve:
+                    st.error(f"Deletion Error: {ve}")
+                except Exception:
+                    st.error("Error deleting schedule.")
         
         # Update schedule section
         with col_upd_sch:
@@ -506,7 +525,7 @@ with tab_schedules:
                             st.experimental_rerun()
                     except ValueError as ve:
                         st.error(f"Validation Error: {ve}")
-                    except Exception as e:
+                    except Exception:
                         logger.exception("Failed to update schedule")
                         st.error("A database error occurred.")
     else:
@@ -558,7 +577,7 @@ with tab_bookings:
                         st.error("Failed to add booking. Check available capacity.")
                 except ValueError as ve:
                     st.error(f"Validation Error: {ve}")
-                except Exception as e:
+                except Exception:
                     logger.exception("Failed to save booking to database")
                     st.error("A database error occurred. Please try again.")
 
@@ -572,21 +591,20 @@ with tab_bookings:
         col_del_b, col_upd_b = st.columns(2)
         
         # Delete booking form
-        with col_del_b:
-            with st.form("delete_booking_form"):
-                st.subheader("Delete Booking")
-                booking_ids = [b[0] for b in bookings]
-                selected_booking_id = st.selectbox("Select Booking ID to Delete", booking_ids, key="del_book_sel")
-                delete_submitted = st.form_submit_button("Delete Booking", use_container_width=True)
-                if delete_submitted:
-                    if delete_booking(selected_booking_id):
-                        st.success(f"Booking {selected_booking_id} deleted successfully!")
-                        time.sleep(1.2)
-                        st.experimental_rerun()
-                    else:
+        with col_del_b, st.form("delete_booking_form"):
+            st.subheader("Delete Booking")
+            booking_ids = [b[0] for b in bookings]
+            selected_booking_id = st.selectbox("Select Booking ID to Delete", booking_ids, key="del_book_sel")
+            delete_submitted = st.form_submit_button("Delete Booking", use_container_width=True)
+            if delete_submitted:
+                if delete_booking(selected_booking_id):
+                    st.success(f"Booking {selected_booking_id} deleted successfully!")
+                    time.sleep(1.2)
+                    st.experimental_rerun()
+                else:
                         st.error("Error deleting booking.")
         
-        # Update booking section (بدون st.form برای مدیریت راحت‌تر ایندکس‌ها)
+        # Update booking section
         with col_upd_b:
             st.subheader("Update Booking")
             book_dict = {b[0]: b for b in bookings}
@@ -626,7 +644,7 @@ with tab_bookings:
                             st.experimental_rerun()
                     except ValueError as ve:
                         st.error(f"Validation Error: {ve}")
-                    except Exception as e:
+                    except Exception:
                         logger.exception("Failed to update booking")
                         st.error("A database error occurred.")
     else:

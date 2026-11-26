@@ -1,12 +1,13 @@
 # test_validation.py
 import pytest
+
 from validation import (
+    validate_booking,
+    validate_email,
+    validate_passenger,
+    validate_schedule,
     validate_station,
     validate_train,
-    validate_passenger,
-    validate_email,
-    validate_schedule,
-    validate_booking,
 )
 
 
