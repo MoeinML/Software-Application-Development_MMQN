@@ -389,3 +389,39 @@ Rather than duplicating test effort, we confirmed that our existing `test_valida
 
 - **Existing Coverage:** `test_validation.py` provides comprehensive unit tests covering cleaned valid inputs (such as station and train names), `ValueError` checks for empty or whitespace-only fields, invalid quantities and formats (including emails and schedule station checks), and `@pytest.mark.parametrize` test cases for invalid capacity and ticket values.
 
+##### Step 4: Automated Fixes, Refactoring Nested `with` Blocks, and Re-checking
+After verifying tests and inspecting `ruff` diagnostics, we applied safe automated fixes for `[*]` rules and manually refactored nested `with` blocks to improve readability and structure.
+
+- **Automated Fixes (`41` → `31` remaining):** Auto-fixable findings such as import sorting/formatting (`I001` across `app.py`, `db.py`, `test_connection.py`, and `validation.py`), removing an extraneous `f`-string prefix (`F541` in `app.py`), and deleting empty comment lines (`PLR2044` in `test_connection.py`) were applied with a single command, bringing remaining issues down from 41 to 31.
+- **Manual Refactoring (`SIM117`, `31` → `26` remaining):** We manually refactored nested context managers (`SIM117` in `app.py`, such as combining `with col_del_b:` and `with st.form("delete_booking_form"):` into `with col_del_b, st.form("delete_booking_form"):`), reducing the remaining `ruff` findings to 26 while leaving remaining `BLE001` and unsafe `raise ve` items for careful review.
+
+![5.3.png](Images/5.3.png)
+
+![5.4.png](Images/5.4.png)
+
+![5.5.png](Images/5.5.png)
+
+![5.6.png](Images/5.6.png)
+
+![5.7.png](Images/5.7.png)
+
+![5.8.1.png](Images/5.8.1.png)
+
+![5.8.2.png](Images/5.8.2.png)
+
+![5.8.3.png](Images/5.8.3.png)
+
+![5.9.png](Images/5.9.png)
+
+##### Step 5: Reviewing Git Diff, Rerunning Tests, and Pushing to GitHub
+After completing the linting cleanup and refactoring, we reviewed the repository changes, reran the test suite to verify stability, and pushed the final improvements to GitHub.
+
+- **Git Diff Inspection (`5.10.png`):** We ran `git diff --stat` and reviewed changes across `app.py`, `db.py`, `test_connection.py`, `test_validation.py`, `train_operations.py`, and `validation.py` (`6 files changed, 145 insertions(+), 122 deletions(+)`) to confirm that modifications remained targeted and clean.
+- **Test Rerun (`5.11.png`):** We rerun `pytest -v` after refactoring and test collection fixes; all **18 tests passed** (`18 passed in 0.40s`) with no collection errors.
+- **Commit & Push (`5.12.png`):** We staged and committed the changes (`[main dfdf9a5] Refactor code, clean up ruff lint issues, and fix test collection`) and pushed them to `origin/main` on GitHub, leaving the working tree clean (`nothing to commit, working tree clean`).
+
+![5.10.png](Images/5.10.png)
+
+![5.11.png](Images/5.11.png)
+
+![5.12.png](Images/5.12.png)
