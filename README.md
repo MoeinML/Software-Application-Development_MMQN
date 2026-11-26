@@ -363,3 +363,29 @@ def test_invalid_ticket_values_are_rejected(invalid_tickets):
 - Verified that all 18 tests passed (`18 passed in 0.03s`) and committed the test suite and updated `requirements.txt` to GitHub for ongoing regression protection.
 
 ![5.1.png](Images/5.1.png)
+
+---
+
+#### 5. Static Code Analysis with `ruff`
+
+##### Step 1: Installing and Running `ruff` (Initial Baseline)
+We installed `ruff` in the active virtual environment (`.venv`) and ran it across the repository to establish a static analysis baseline and identify code quality and style issues before refactoring.
+
+- **Initial Findings:** `ruff` reported **41 errors** across the codebase (`Found 41 errors`), highlighting **10 fixable** items with `--fix` (plus **3 unsafe fixes** available with `--fix --unsafe-fixes`).
+- **Key Issue Types Observed:**
+  - Blind exception handling (`BLE001`: catching `Exception` broadly in `train_operations.py` during update and delete operations).
+  - Unsorted or unformatted import blocks (`I001`: import ordering/spacing before `validate_schedule` in `validation.py`).
+  - Redundant or unsafe exception re-raising hints (`raise ve` vs. `raise` flagged as an unsafe fix)[cite: 11].
+
+![5.2.png](Images/5.2.png)
+
+##### Step 2: Reviewing Naming Clarity and Duplicated Code
+We manually reviewed the codebase for unclear naming conventions and unnecessary code duplication across the modules.
+
+- **Naming & Structure Review:** Function, variable, and module names across `db.py`, `train_operations.py`, `validation.py`, `app.py`, and `test_validation.py` were clear and consistent with their responsibilities, and no problematic code duplication required refactoring at this stage.
+
+##### Step 3: Meaningful Unit Test Cases (`test_validation.py`)
+Rather than duplicating test effort, we confirmed that our existing `test_validation.py` suite already satisfies—and exceeds—the requirement to have at least three meaningful unit test cases.
+
+- **Existing Coverage:** `test_validation.py` provides comprehensive unit tests covering cleaned valid inputs (such as station and train names), `ValueError` checks for empty or whitespace-only fields, invalid quantities and formats (including emails and schedule station checks), and `@pytest.mark.parametrize` test cases for invalid capacity and ticket values.
+
